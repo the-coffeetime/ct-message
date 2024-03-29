@@ -10,10 +10,10 @@ public class Messages {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long messageId;
 
-    @JoinColumn(name = "fromUserId", nullable = false, referencedColumnName = "userId")
+    @Column(name = "fromUserId", nullable = false)
     private int fromUserId;
 
-    @JoinColumn(name = "toUserId", nullable = false, referencedColumnName = "userId")
+    @Column(name = "toUserId", nullable = false)
     private int toUserId;
 
     @Column(nullable = false, columnDefinition = "TEXT")
@@ -24,6 +24,18 @@ public class Messages {
 
     @Column(nullable = false, columnDefinition = "BOOLEAN")
     private Boolean read = false;
+
+    @Column(nullable = true, columnDefinition = "TIMESTAMP")
+    private Instant deleteAt;
+
+    @Column(nullable = false, columnDefinition = "BOOLEAN")
+    private Boolean anonymous = false;
+
+    @Column(nullable = true)
+    private String anonymousName;
+
+    @Column(nullable = true)
+    private int fromPostId;
 
     // Constructors
     public Messages() {
@@ -76,5 +88,54 @@ public class Messages {
 
     public void setRead(Boolean read) {
         this.read = read;
+    }
+
+    public Instant getDeleteAt() {
+        return deleteAt;
+    }
+
+    public void setDeleteAt(Instant deleteAt) {
+        this.deleteAt = deleteAt;
+    }
+
+    public Boolean getAnonymous() {
+        return anonymous;
+    }
+
+    public void setAnonymous(Boolean anonymous) {
+        this.anonymous = anonymous;
+    }
+
+    public String getAnonymousName() {
+        return anonymousName;
+    }
+
+    public void setAnonymousName(String anonymousName) {
+        this.anonymousName = anonymousName;
+    }
+
+    public int getFromPostId() {
+        return fromPostId;
+    }
+
+    public void setFromPostId(int fromPostId) {
+        this.fromPostId = fromPostId;
+    }
+
+    // toString
+    @Override
+    public String toString() {
+        return "Messages{" +
+                "messageId=" + messageId +
+                ", fromUserId=" + fromUserId +
+                ", toUserId=" + toUserId +
+                ", content='" + content + '\'' +
+                ", sendAt=" + sendAt +
+                ", read=" + read +
+                ", deleteAt=" + deleteAt +
+                ", anonymous=" + anonymous +
+                ", anonymousName='" + anonymousName + '\'' +
+                ", fromPostId=" + fromPostId +
+                '}';
     }
 }
